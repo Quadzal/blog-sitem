@@ -1,0 +1,94 @@
+<% include navbarTemplate %>
+<title><%= article.title %></title>
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+        <!-- Title -->
+        <h1 class="mt-4"><%= article.title %></h1>
+
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="#"><%= article.author %></a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="/public/uploads/<%= article.title %>.png" alt="">
+
+        <hr>
+
+        <!-- Post Content -->
+        <%- article.content %>
+    <form action="/blog/addComment" method="POST">
+        <!-- Comments Form -->
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+              <div class="form-group">
+                <label for="comment_sender">Comment Sender</label>
+                <input name="comment_sender" id="comment_sender" type="text" class="form-control">
+              </div>
+              <div class="form-group">
+                    <textarea name="comment" class="form-control" rows="3"></textarea>
+                </div>
+                <input type="hidden" value="<%= article.slug_title %>" name="slug_title">
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+    </form>
+        <!-- Single Comment -->
+        <% if(comments.length > 0){%>
+            <% comments.forEach(comments => {%>
+                <div class="media mb-4">
+                        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                        <div class="media-body">
+                          <h5 class="mt-0"><%= comments.sender %></h5>
+                          <%= comments.comment %>
+                        </div>
+                      </div>
+            <% }) %>  
+        <% } else { %>
+            
+            <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                      <h3 class="mt-0 text-warning">Comment Not Found</h5>
+                      
+                    </div>
+            </div>
+        <% } %>
+
+          </div>
+        </div>
+
+      </div>
+
+      
+
+        
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; EsatBey Blog Website 2019</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="/public/jquery/jquery.min.js"></script>
+  <script src="/public/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
